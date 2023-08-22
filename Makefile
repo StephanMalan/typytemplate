@@ -1,5 +1,5 @@
 run:
-	python -m src.typytemplate.main
+	python -m typytemplate.main
 
 lint:
-	poetry run ruff ./ && poetry run pylint ./src && poetry run mypy . --explicit-package-bases
+	poetry run ruff ./ && poetry run pylint ./typytemplate && poetry run mypy . --explicit-package-bases

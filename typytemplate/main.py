@@ -6,7 +6,7 @@ from os.path import join as path_join
 from subprocess import Popen
 from typing import Any
 
-from src.typytemplate.templates import (
+from typytemplate.templates import (
     dot_gitignore,
     dot_pylintrc,
     main_py,
@@ -33,9 +33,9 @@ def create_file(directory: str, path: str, content: str) -> None:
 
 
 def run_command(directory: str, command: tuple[str, ...]) -> tuple[int, str, str]:
-    process = Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=directory)
-    stdout, stderr = process.communicate()
-    return (process.returncode, stdout.decode(), stderr.decode())
+    with Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=directory) as process:
+        stdout, stderr = process.communicate()
+        return (process.returncode, stdout.decode(), stderr.decode())
 
 
 def install_poetry_deps(directory: str) -> None:
@@ -73,7 +73,7 @@ def get_user_prompts(project_dir: str) -> dict[str, Any]:
                 )
                 config[key] = data_type(user_value) if user_value else default
                 break
-            except Exception:
+            except ValueError:
                 ...
     return config
 
@@ -99,7 +99,7 @@ def main() -> int:
     vscode_dir = path_join(base_dir, ".vscode")
     create_file(vscode_dir, "settings.json", vscode_settings_json.format_file(**config))
 
-    project_dir = path_join(base_dir, "src", config["package_name"])
+    project_dir = path_join(base_dir, config["package_name"])
     create_init_file(project_dir)
     create_file(project_dir, "main.py", main_py.format_file())
 

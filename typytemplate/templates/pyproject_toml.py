@@ -11,7 +11,11 @@ description = "{kwargs["description"]}"
 license = "{kwargs["license"]}"
 authors = ["{kwargs["author"]}"]
 readme = "README.md"
-packages = [{{include = "{kwargs["package_name"]}", from = "src"}}]
+packages = [{{include = "{kwargs["package_name"]}"}}]
+
+
+[tool.poetry.scripts]
+{kwargs["package_name"]} = "{kwargs["package_name"]}.main:main"
 
 
 [tool.poetry.dependencies]
