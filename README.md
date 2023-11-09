@@ -23,7 +23,7 @@ You will then be guided, via a command line wizzard, for some basic configuratio
 Currently, template sets up:
  - Poetry configuration
  - Linting via Pylint, Mypy, and Ruff
- - Formatting with black
+ - Formatting with ruff
  - Basic "Hello World" template
  - Basic test template
  - VSCode configuration
